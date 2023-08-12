@@ -1,0 +1,6 @@
+spring:
+  data:
+    mongodb:
+      database: history
+      host: pathistorymongodb
+      port: 27017
