@@ -2,5 +2,10 @@ spring:
   data:
     mongodb:
       database: history
-      host: pathistorymongodb
+      host: history-mongodb
       port: 27017
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: false

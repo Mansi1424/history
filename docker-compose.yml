@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  history-mongodb:
+    image: mongo:latest
+    container_name: "history-mongodb"
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+  springbootdockercompose:
+    image: springdockercompose:latest
+    container_name: "springdockercompose"
+    ports:
+      - 8082:8080
+    volumes:
+      - ./src/main:/src/main
+    depends_on:
+      - history-mongodb
+volumes:
+  mongodb_data:

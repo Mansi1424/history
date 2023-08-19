@@ -1,0 +1,87 @@
+<html lang="eng-us">
+<head>
+    <title>Patient History</title>
+    <style>
+      table {
+      border-collapse: collapse;
+      width: 100%;
+        }
+
+      th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+
+      th {
+      background-color: #f2f2f2; /* Optional: add a background color for the table headers */
+    }
+
+    /* Optional: add some styling to the table container */
+    .table-container {
+      margin: 20px;
+      border: 1px solid black;
+      padding: 10px;
+      max-width: 500px;
+    }
+
+            label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Style for form input fields */
+        input[type="text"],
+        input[type="number"] {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Style for the "Add Item" button */
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+
+</head>
+<body>
+<h1>Patient History</h1>
+<table class="table table-bordered" id="history-demographics">
+    <thead>
+    <tr>
+        <th>Patient Id</th>
+        <th>Patient History</th>
+    </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+</table>
+<button id="updateHistoryButton">Update History Table</button>
+
+<div class="form-container">
+    <h2>Add New Patient</h2>
+    <form id="addPatientForm">
+        <label for="patId">Patient ID:</label>
+        <input type="text" id="patId" name="patId" required>
+        <label for="notes">Notes:</label>
+        <input type="text" id="notes" name="notes" required>
+        <button type="submit" id="addNewHistory">Add New Patient History</button>
+    </form>
+</div>
+<!-- New button for manual update -->
+<script src="js/script.js" defer></script>
+</body>
+</html>

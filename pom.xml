@@ -53,7 +53,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>springboot-mongo-docker</finalName>
+		<finalName>springboot-docker-compose</finalName>
 	</build>
 
 </project>

@@ -20,21 +20,21 @@ public class PatientHistoryController {
     @Autowired
     private PatientHistoryService patientHistoryService;
 
-    @PostMapping(path="/add")
+    @PostMapping(path = "/add")
     public ResponseEntity<PatientHistory> saveHistory(@RequestParam int id, @RequestParam String notes) {
-            PatientHistory history = new PatientHistory();
-            history.setPatId(id);
-            history.setNote(notes);
+        PatientHistory history = new PatientHistory();
+        history.setPatId(id);
+        history.setNote(notes);
 
-            // Save data to the repository
-            repository.save(history);
+        // Save data to the repository
+        repository.save(history);
 
-            return new ResponseEntity<PatientHistory>(patientHistoryService.savePatientHistory(history), HttpStatus.CREATED);
+        return new ResponseEntity<PatientHistory>(patientHistoryService.savePatientHistory(history), HttpStatus.CREATED);
 
 
     }
 
-    @GetMapping()
+    @GetMapping("/get")
     public List<PatientHistory> getBooks() {
         return repository.findAll();
     }
