@@ -29,52 +29,111 @@ function fetchItems() {
         .catch(error => console.error('Error fetching data:', error));
 }
 
-// Function to handle form submission and add new row to the table
-function addNewHistory(event) {
-    event.preventDefault();
-    const form = event.target;
-    const patId = form.patId.value;
-    const notes = form.notes.value;
+//function updateTable() {
+//    fetchItems();
+//}
 
-    // Create a new row for the new item and add it to the table
-    const tableBody = document.querySelector('#history-demographics tbody');
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-        <td contenteditable="true">${patientName}</td>
-        <td contenteditable="true">${familyName}</td>
-    `;
-    tableBody.appendChild(newRow);
 
-    console.log(tableBody);
-    console.log(newRow);
+async function addNewHistory() {
 
-    // Clear the form fields
-    form.reset();
+    const historyForm = document.getElementById('addHistoryForm');
+    const historyTableBody = document.getElementById('table-body');
 
-    const formData = {
-        name: patientName,
-        familyName: familyName,
-        dateOfBirth: dob,
-        sex: gender,
-        homeAddress: address,
-        phoneNumber: phone
-    };
+    const patientId = document.getElementById('patId').value;
+    const history = document.getElementById('notes').value;
 
-    // Send the form data to the POST API using fetch
-    fetch('patHistory/add?id=2&notes=Best notes', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData),
-    })
-    .then(data => {
-        // Handle the API response, if needed
-        console.log('API response:', data);
-        location.assign("./");
-    })
-    .catch(error => console.error('Error submitting data:', error));
+    console.log(patientId);
+    console.log(history);
+
+     // Construct URL with request parameters
+    const url = `/patHistory/add?patId=${encodeURIComponent(patientId)}&note=${encodeURIComponent(history)}`;
+
+     // Add row to the table
+    const newRow = historyTableBody.insertRow();
+    const cell1 = newRow.insertCell(0);
+    const cell2 = newRow.insertCell(1);
+    cell1.textContent = patientId;
+    cell2.textContent = history;
+
+     try {
+        // Make POST API request
+        const response = await fetch(url, {
+          method: 'POST'
+        });
+
+        if (response.ok) {
+          console.log('History added successfully.');
+        } else {
+          console.error('Failed to add history.');
+        }
+     } catch (error) {
+        console.error('An error occurred:', error);
+     }
 }
 
-document.getElementById('addNewHistory').addEventListener('submit', addNewHistory);
+
+function getRowId(row) {
+    return row.getAttribute('data-row-id');
+}
+
+async function saveChanges() {
+    const tableBody = document.querySelector("#history-demographics tbody");
+    const rows = tableBody.querySelectorAll('tr');
+    const updatedData = [];
+    console.log(tableBody);
+    console.log("rows " + rows);
+
+
+     rows.forEach(row => {
+       const cells = row.querySelectorAll('td');
+       const dataObject = {
+         patId: cells[0].textContent,
+         note: cells[1].textContent,
+       };
+       updatedData.push(dataObject);
+     });
+
+    console.log(updatedData)
+    sendPutRequest(updatedData);
+}
+
+
+function sendPutRequest(data) {
+
+  const apiUrl = 'https://api.example.com/update';
+
+  fetch('patHistory/update', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Data updated successfully.');
+    } else {
+      console.error('Failed to update data.');
+    }
+  })
+  .then(response => response.json())
+      .then(data => {
+          // Handle the API response, if needed
+          console.log('API response:', data);
+          location.assign("./");
+      })
+  .catch(error => {
+    console.error('Error occurred while updating data:', error);
+  });
+}
+
+document.getElementById('updateHistoryButton').addEventListener('click', () => {
+    saveChanges();
+});
+
+
+//// Add a click event listener to the "add New Patient" button
+//document.getElementById('addNewHistory').addEventListener('click', updateTable);
+
+document.getElementById('addHistoryForm').addEventListener('submit', addNewHistory);
 window.onload = fetchItems;
