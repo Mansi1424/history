@@ -16,6 +16,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Class to Test Patient History Controller
+ */
 @WebMvcTest(PatientHistoryController.class)
 public class PatientHistoryControllerTest {
 
@@ -40,5 +43,19 @@ public class PatientHistoryControllerTest {
 
     }
 
+    @Test
+    public void createEmployeeAPI() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/patHistory/add")
+                        .param("patId", "8")
+                        .param("note", "Testing addNote"))
+                .andExpect(status().isCreated());
+    }
 
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

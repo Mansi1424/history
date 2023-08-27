@@ -9,6 +9,9 @@ import com.example.history.exception.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Patient History Impl class that has logic to get info from repo
+ */
 @Service
 public class PatientHistoryServiceImpl implements PatientHistoryService{
 

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+/**
+ * Patient History Controller
+ */
 @RestController
 @RequestMapping("/patHistory")
 public class PatientHistoryController {
@@ -21,7 +23,13 @@ public class PatientHistoryController {
         this.patientHistoryService = patientHistoryService;
     }
 
-
+    /**
+     * POST API - Saves patient note and id
+     *
+     * @param patId
+     * @param note
+     * @return
+     */
     @PostMapping(path = "/add")
     public ResponseEntity<PatientHistory> saveHistory(@RequestParam int patId, @RequestParam String note) {
         PatientHistory history = new PatientHistory();
@@ -33,11 +41,22 @@ public class PatientHistoryController {
 
     }
 
+    /**
+     * Get API - to get all patient notes
+     *
+     * @return Returns all patient history
+     */
     @GetMapping("/get")
     public List<PatientHistory> getHistory() {
         return patientHistoryService.getAllPatientHistory();
     }
 
+    /**
+     * PUT api to get update all history
+     *
+     * @param updatedPatients
+     * @return
+     */
     @PutMapping("/update")
     @ResponseBody
     public List<PatientHistory> updateMultipleHistory(@RequestBody List<PatientHistory> updatedPatients) {
