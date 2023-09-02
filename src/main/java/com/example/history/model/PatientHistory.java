@@ -15,14 +15,28 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "patientHistory")
 public class PatientHistory {
 
-    @Id
-    private int patId;
 
-    public int getPatId() {
+    @Id
+    private String id;
+
+    private String patId;
+
+    private String note;
+
+    public String getId() {
+        return id;
+    }
+
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPatId() {
         return patId;
     }
 
-    public void setPatId(int patId) {
+    public void setPatId(String patId) {
         this.patId = patId;
     }
 
@@ -34,6 +48,6 @@ public class PatientHistory {
         this.note = note;
     }
 
-    private String note;
+
 
 }

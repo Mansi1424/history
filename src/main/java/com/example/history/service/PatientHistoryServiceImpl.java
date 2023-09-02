@@ -41,7 +41,7 @@ public class PatientHistoryServiceImpl implements PatientHistoryService{
 
             for (PatientHistory updatedHistory : patients) {
 
-                Integer id = updatedHistory.getPatId();
+                String id = updatedHistory.getId();
                 // check whether patient History is in DB or not
                 PatientHistory existingHistory = patientHistoryRepo.findById(id).orElseThrow(
                         () -> new ResourceNotFoundException("History", "Id", id));

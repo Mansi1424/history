@@ -8,7 +8,7 @@ function fetchItems() {
             // Loop through the data and create table rows
             data.forEach(item => {
                 const row = document.createElement('tr');
-                row.setAttribute('data-row-id', item.patId);
+                row.setAttribute('data-row-id', item.id);
 
                 //Name column
                 const idCell = document.createElement("td");
@@ -22,7 +22,7 @@ function fetchItems() {
                 notesCell.contentEditable = true;
                 row.appendChild(notesCell);
 
-
+                console.log(row);
                 tableBody.appendChild(row);
             });
         })
@@ -87,8 +87,9 @@ async function saveChanges() {
      rows.forEach(row => {
        const cells = row.querySelectorAll('td');
        const dataObject = {
+         id: getRowId(row),
          patId: cells[0].textContent,
-         note: cells[1].textContent,
+         note: cells[1].textContent
        };
        updatedData.push(dataObject);
      });
@@ -99,8 +100,6 @@ async function saveChanges() {
 
 
 function sendPutRequest(data) {
-
-  const apiUrl = 'https://api.example.com/update';
 
   fetch('patHistory/update', {
     method: 'PUT',

@@ -2,6 +2,7 @@ package com.example.history.controller;
 
 import com.example.history.model.PatientHistory;
 import com.example.history.service.PatientHistoryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,20 +19,23 @@ public class PatientHistoryController {
 
     private PatientHistoryService patientHistoryService;
 
+//    private SequenceGeneratorService sequenceGeneratorService;
+
     @Autowired
     public PatientHistoryController(PatientHistoryService patientHistoryService) {
         this.patientHistoryService = patientHistoryService;
+//        this.sequenceGeneratorService = sequenceGeneratorService;
     }
 
     /**
      * POST API - Saves patient note and id
      *
-     * @param patId
-     * @param note
+     * @param patId patientId
+     * @param note patientNote
      * @return
      */
     @PostMapping(path = "/add")
-    public ResponseEntity<PatientHistory> saveHistory(@RequestParam int patId, @RequestParam String note) {
+    public ResponseEntity<PatientHistory> saveHistory(@RequestParam String patId, @RequestParam String note) {
         PatientHistory history = new PatientHistory();
         history.setPatId(patId);
         history.setNote(note);
@@ -54,8 +58,8 @@ public class PatientHistoryController {
     /**
      * PUT api to get update all history
      *
-     * @param updatedPatients
-     * @return
+     * @param updatedPatients historyBodyToUpdate
+     * @return updatedPatientHistory
      */
     @PutMapping("/update")
     @ResponseBody
