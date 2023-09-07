@@ -32,7 +32,7 @@ public class PatientHistoryController {
      *
      * @param patId patientId
      * @param note patientNote
-     * @return
+     * @return addedPatientHistory
      */
     @PostMapping(path = "/add")
     public ResponseEntity<PatientHistory> saveHistory(@RequestParam String patId, @RequestParam String note) {
@@ -46,6 +46,17 @@ public class PatientHistoryController {
     }
 
     /**
+     * GET API - to get patient notes by a patId
+     * @param patId patientId set by user
+     * @return one patient note by patId
+     */
+    @GetMapping(path = "/getById")
+    @ResponseBody
+    public List<PatientHistory> getHistoryById(@RequestParam String patId) {
+        return patientHistoryService.getPatientHistoryById(patId);
+    }
+
+    /**
      * Get API - to get all patient notes
      *
      * @return Returns all patient history
@@ -54,6 +65,7 @@ public class PatientHistoryController {
     public List<PatientHistory> getHistory() {
         return patientHistoryService.getAllPatientHistory();
     }
+
 
     /**
      * PUT api to get update all history

@@ -9,5 +9,7 @@ public interface PatientHistoryService {
 
     List<PatientHistory> getAllPatientHistory();
 
+    List<PatientHistory> getPatientHistoryById(String patId);
+
     List<PatientHistory> updateMultiplePatients(List<PatientHistory> patients);
 }

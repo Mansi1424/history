@@ -34,6 +34,12 @@ public class PatientHistoryServiceImpl implements PatientHistoryService{
     }
 
     @Override
+    public List<PatientHistory> getPatientHistoryById(String patId) {
+
+        return patientHistoryRepo.findByPatId(patId);
+    }
+
+    @Override
     public List<PatientHistory> updateMultiplePatients(List<PatientHistory> patients) {
 
 
